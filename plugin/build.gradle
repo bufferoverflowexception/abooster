@@ -1,0 +1,81 @@
+plugins {
+    id 'groovy'
+    id "maven-publish"
+}
+
+
+def isLocalBuild = true
+if (isLocalBuild) {
+    apply plugin: 'java-gradle-plugin'
+
+
+    group = 'com.yy.sdk.abooster'
+    version = '2.0.0-SNAPSHOT'
+
+    repositories {
+        mavenCentral()
+        mavenLocal()
+        google()
+        jcenter()
+    }
+
+    gradlePlugin {
+        plugins {
+            customPlugin {
+                id = 'com.yy.sdk.abooster'
+                implementationClass = 'com.yy.sdk.plugin.AppPlugin'
+            }
+        }
+    }
+} /*else {
+    group rootProject.ext.GROUP
+    version rootProject.ext.VERSION
+    apply from: '../gradle/java-artifacts.gradle'
+    apply from: '../gradle/publish.gradle'
+}*/
+
+
+dependencies {
+    implementation gradleApi()
+    implementation localGroovy()
+
+    implementation "com.android.tools.build:gradle:3.4.2"
+    implementation "org.jetbrains.kotlin:kotlin-gradle-plugin:1.4.32"
+    implementation "org.jetbrains.kotlin:kotlin-compiler-embeddable:1.4.32"
+    implementation "org.jetbrains.kotlin:kotlin-daemon-client:1.4.32"
+    implementation "org.jetbrains.kotlin:kotlin-compiler-runner:1.4.32"
+}
+
+sourceSets {
+    main {
+        groovy {
+            srcDir 'src/main/'
+        }
+        resources {
+            srcDir 'src/main/resources'
+        }
+    }
+}
+
+ext {
+    publish_groupId = 'com.yy.sdk.abooster'
+    publish_artifactId = 'plugin'
+    version = '2.0.0-SNAPSHOT'
+}
+
+publishing {
+    publications {
+        mainMaven(MavenPublication) {
+            from components.java
+
+            groupId publish_groupId
+            artifactId publish_artifactId
+            version "$version"
+        }
+
+    }
+}
+
+tasks.named("processResources") {
+    duplicatesStrategy = DuplicatesStrategy.INCLUDE
+}
