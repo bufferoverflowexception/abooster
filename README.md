@@ -4,8 +4,6 @@ An android gradle plugin for  enhance compiler and reduce cost time in building
 ##### 背景
 abooster是20年的时候我给hago弄的构建加速插件，当时由于hago是海外项目，需要上架GP的，因此不能像国内那样搞插件化，加上hago整个项目的规模也十分之庞大，几十个modules几十上百万行代码，并且常年不更新agp kgp，所以hago的构建是比较慢的，如果动到一些底层base库那个编译等待时间真的是要命。为了解决编译耗时问题，所以开始着手研究agp跟kgp，开发构建加速插件。不过由于某种原因，这个插件项目刚开发完还没来得及测试就被我弃用了。直到今年有同事希望我能把资源编译也加上，研究下发现也是可行的，功能加上后整理了代码跟资料后，现把项目开源出去，供同样受编译耗时问题困扰的友人们参考参考。
 
-[源码地址](https://github.com/bufferoverflowexception/abooster)
-
 ##### 使用介绍
 abooster并不是通用的解决方案，要根据自身的项目环境去适配，目前已经适配的agp版本是`3.4.2` 已适配的kgp版本是`1.4.32` (版本是比较低，因为公司的项目还在用 没办法。。)
 
