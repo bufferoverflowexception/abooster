@@ -32,6 +32,7 @@ ABooster {
 }
 ```
 并不是遇到了什么技术难点所以不支持，仅仅是因为我没时间去做适配而已。。。 
+
 `pkg` `launchActivity`是可选配置，不配也没关系，我会通过解析`AndroidManifest.xml`把默认配置读取出来。
 
 
