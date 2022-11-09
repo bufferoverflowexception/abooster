@@ -18,7 +18,8 @@ dependencies {
 }
 apply plugin: 'com.yy.sdk.abooster.plugin'
 ```
-使用的时候你可以正常通过`assembleDebug`(或as里的run三角icon)来跑你的代码，abooster拦截了gradle的构建流程，会自动检测是否支持增量，能支持增量编译的话会走abooster内部构建，不支持增量编译会自动跑回系统的默认构建流程(开源版暂不提供此功能)。又或者是手动执行abooster的`buildDebugBoosterBundle`任务，`buildDebugBoosterBundle`任务会触发kotlin java等代码的编译，或资源的编译打包等等。需要注意的是，只有App模块才会有`buildDebugBoosterBundle`，Android Library模块是没有的，使用的时候也只管跑App模块的任务就可以了，其余模块下的abooster任务可以不管。
+使用的时候你可以正常通过`assembleDebug`(或as里的run三角icon)来跑你的代码，abooster拦截了gradle的构建流程，会自动检测是否支持增量，能支持增量编译的话会走abooster内部构建，不支持增量编译会自动跑回系统的默认构建流程(开源版暂不提供此功能)。
+又或者是手动执行abooster的`buildDebugBoosterBundle`任务，`buildDebugBoosterBundle`任务会触发kotlin java等代码的编译，或资源的编译打包等等。需要注意的是，只有App模块才会有`buildDebugBoosterBundle`，Android Library模块是没有的，使用的时候也只管跑App模块的任务就可以了，其余模块下的abooster任务可以不管。
 
 abooster只支持增量构建并不支持全量构建，因此第一次执行`buildDebugBoosterBundle`任务的时候所有task状态都会是incremental:false，false的时候abooster默认是不执行构建的并且会清理掉缓存目录，第二次跑`buildDebugBoosterBundle`的时候才会是增量，这个其实也很好理解，增量毕竟是在上一次的基础上diff出来的，所以第一次必然是非增量的。
 
@@ -30,7 +31,7 @@ ABooster {
     exclude = ['testlib']
 }
 ```
-并不是遇到了什么技术难点所以不支持，仅仅是因为我没时间去做适配而已。。。
+并不是遇到了什么技术难点所以不支持，仅仅是因为我没时间去做适配而已。。。 
 `pkg` `launchActivity`是可选配置，不配也没关系，我会通过解析`AndroidManifest.xml`把默认配置读取出来。
 
 
